@@ -6,3 +6,63 @@
   flex-direction: column;
 }
 /* write your parent styles in here for your App.js */
+.PokemonList {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(220, 220, 220, 0.2);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+.Card {
+  width: 40%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #000;
+}
+.Head {
+  background-color: #333;
+  color: #FFF;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  padding: 5px;
+}
+.Head .crop {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+}
+.Head .crop img {
+  height: 96px;
+  width: 96px;
+  margin: -23px 0 0 -23px;
+}
+.Head h2 {
+  flex-grow: 2;
+  text-align: left;
+  padding: 5px;
+  text-transform: capitalize;
+  font-size: 2em;
+}
+.Head h3 {
+  padding: 5px;
+  font-size: 1.3em;
+}
+.Info {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.Info .Types {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+.Info .Types .Type {
+  padding: 5px;
+}

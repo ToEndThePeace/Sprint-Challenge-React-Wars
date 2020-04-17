@@ -1,11 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import "./App.css";
 
 import pokemon from "./assets/pokeData";
 
+const _API_URL = "https://pokeapi.co/api/v2/pokemon/";
+
 const App = () => {
   const [myPokemon, setMyPokemon] = useState([]);
+
+  // Axios API Pull
+  const requests = pokemon.map((x) => {
+    return axios.get(_API_URL + x);
+  });
+
+  const newData = [];
+
+  useEffect(() => {
+    axios
+      .all(requests)
+      .then(
+        axios.spread((...responses) => {
+          responses.forEach((res) => {
+            newData.push(res.data);
+          });
+          setMyPokemon(newData);
+        })
+      )
+      .catch((err) => {
+        alert(`ERROR ${err.response.status}: ${err.response.statusText}`);
+      });
+  }, []);
 
   return (
     <div className="App">
@@ -19,12 +45,83 @@ const App = () => {
           ></input>
         </label>
       </SearchBar>
-      <PokemonList />
+      <PokemonList myPokemon={myPokemon} />
     </div>
   );
 };
 
+function PokemonList(props) {
+  const { myPokemon } = props;
+  return (
+    <div className="PokemonList">
+      {myPokemon.map((x, i) => {
+        return <Card info={x} key={i} />;
+      })}
+    </div>
+  );
+}
 
+function Card(props) {
+  const { info } = props;
+
+  return (
+    <div className="Card">
+      <Head name={info.name} id={info.id} sprite={info.sprites.front_default} />
+      <Info types={info.types} stats={info.stats} abilities={info.abilities} />
+    </div>
+  );
+}
+function Info(props) {
+  const { types, stats, abilities } = props;
+
+
+  return (
+    <div className="Info">
+      <Types types={types} />
+      {/* <Abilities abilities={abilities} />
+      <Stats stats={stats} /> */}
+    </div>
+  )
+}
+
+function Head(props) {
+  const { name, id, sprite } = props;
+  return (
+    <div className="Head">
+      <div className="crop">
+        <img src={sprite} alt={`${name}'s default sprite`} />
+      </div>
+      <h2>{name}</h2>
+      <h3>{`#${id}`}</h3>
+    </div>
+  );
+}
+function Types(props) {
+  const { types } = props;
+
+  return (
+    <p className="Types">
+      Type:&nbsp;
+      {types.map((x) => {
+        return <Type key={x.slot} type={x.type.name} />;
+      })}
+    </p>
+  );
+}
+function Type(props) {
+  const { type } = props;
+  return <div className="Type">{type}</div>;
+}
+
+// function Abilities(props) {
+//   const {abilities} = props;
+//   return (
+    
+//   )
+// }
+// function Stats(props) {
+
+// }
 
 const SearchBar = styled.div`
   width: 100%;
@@ -45,12 +142,4 @@ const SearchBar = styled.div`
     font-weight: 600;
   }
 `;
-const PokemonList = styled.div`
-  width: 100%;
-  max-width: 800px;
-  min-height: 80vh;
-  margin: 0 auto;
-  background-color: rgba(220, 220, 220, 0.2);
-`;
-
 export default App;

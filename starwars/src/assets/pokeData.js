@@ -1,7 +1,7 @@
 const pokemon = [
-  "Bulbasaur",
-  "Charmander",
-  "Squirtle",
-  "Pikachu"
+  "bulbasaur",
+  "charmander",
+  "squirtle",
+  "pikachu"
 ]
 export default pokemon;
