@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+
+import SearchBar from "./components/SearchBar/SearchBar";
+
 import "./App.css";
 
-import pokemon from "./assets/pokeData";
+import pokeNames from "./assets/pokeData";
 
 const _API_URL = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -11,7 +14,7 @@ const App = () => {
   const [myPokemon, setMyPokemon] = useState([]);
 
   // Axios API Pull
-  const requests = pokemon.map((x) => {
+  const requests = pokeNames.map((x) => {
     return axios.get(_API_URL + x);
   });
 
@@ -42,7 +45,11 @@ const App = () => {
           <input
             name="searchBar"
             placeholder="Enter name or ID here..."
-          ></input>
+          />
+          <input
+            type="submit"
+            name="submit"
+          />
         </label>
       </SearchBar>
       <PokemonList myPokemon={myPokemon} />
@@ -71,17 +78,6 @@ function Card(props) {
     </div>
   );
 }
-function Info(props) {
-  const { types, stats, abilities } = props;
-
-  return (
-    <div className="Info">
-      <Types types={types} />
-      <Abilities abilities={abilities} />
-      <Stats stats={stats} />
-    </div>
-  );
-}
 
 function Head(props) {
   const { name, id, sprite } = props;
@@ -95,12 +91,23 @@ function Head(props) {
     </div>
   );
 }
+function Info(props) {
+  const { types, stats, abilities } = props;
+
+  return (
+    <div className="Info">
+      <Types types={types} />
+      <Abilities abilities={abilities} />
+      <Stats stats={stats} />
+    </div>
+  );
+}
 function Types(props) {
   const { types } = props;
 
   return (
     <div className="Types flexy">
-      Type:&nbsp;
+      <span>Type:</span>&nbsp;
       {types.map((x) => {
         return <Type key={x.slot} type={x.type.name} />;
       })}
@@ -118,7 +125,7 @@ function Abilities(props) {
 
   return (
     <div className="Abilities flexy">
-      Abilities:&nbsp;
+      <span>Abilities:</span>&nbsp;
       {abilities.map((x, i) => {
         return <Ability ability={x.ability} key={i} />;
       })}
@@ -127,7 +134,7 @@ function Abilities(props) {
 }
 function Ability(props) {
   const { ability } = props;
-  return <div className="Ability">{ability.name}</div>;
+  return <div className="Ability">{ability.name.replace(/-/g," ")}</div>;
 }
 
 function Stats(props) {
@@ -135,7 +142,7 @@ function Stats(props) {
 
   return (
     <div className="Stats">
-      <h4>Base Stats</h4>
+      <h4>Base Stats:</h4>
       {stats.map((x, i) => {
         return <Stat stat={x} key={i} />;
       })}
@@ -144,32 +151,26 @@ function Stats(props) {
 }
 function Stat(props) {
   const {stat} = props;
+  const name = stat.stat.name;
+  const newName = name === "speed"           ? "speed"           :
+                  name === "special-defense" ? "special defense" :
+                  name === "special-attack"  ? "special attack"  : 
+                  name === "hp"              ? "hit points"      :
+                  name === "attack"          ? "attack"          :
+                                               "defense"         ;
 
   return (
     <div className="Stat">
-      <h5>{stat.stat.name}</h5>
-      <h6>{stat.base_stat}</h6>
+      <h5>{newName}&nbsp;</h5>
+      <Dots />
+      <h6>&nbsp;&nbsp;{stat.base_stat}</h6>
     </div>
   )
 }
+function Dots(props) {
+  return (
+    <span className="Dots">...................................................................................................</span>
+  )
+}
 
-const SearchBar = styled.div`
-  width: 100%;
-  height: 20vh;
-  background: rgba(220, 220, 220, 0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  h1 {
-    font-family: "Pocket Monk";
-    color: yellow;
-    -webkit-text-stroke: 1px blue;
-    font-size: 5rem;
-  }
-  label {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-`;
 export default App;
