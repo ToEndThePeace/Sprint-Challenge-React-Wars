@@ -74,14 +74,13 @@ function Card(props) {
 function Info(props) {
   const { types, stats, abilities } = props;
 
-
   return (
     <div className="Info">
       <Types types={types} />
-      {/* <Abilities abilities={abilities} />
-      <Stats stats={stats} /> */}
+      <Abilities abilities={abilities} />
+      <Stats stats={stats} />
     </div>
-  )
+  );
 }
 
 function Head(props) {
@@ -100,12 +99,12 @@ function Types(props) {
   const { types } = props;
 
   return (
-    <p className="Types">
+    <div className="Types flexy">
       Type:&nbsp;
       {types.map((x) => {
         return <Type key={x.slot} type={x.type.name} />;
       })}
-    </p>
+    </div>
   );
 }
 function Type(props) {
@@ -113,15 +112,46 @@ function Type(props) {
   return <div className="Type">{type}</div>;
 }
 
-// function Abilities(props) {
-//   const {abilities} = props;
-//   return (
-    
-//   )
-// }
-// function Stats(props) {
+function Abilities(props) {
+  const { abilities } = props;
+  let abilityInfo = [];
 
-// }
+  return (
+    <div className="Abilities flexy">
+      Abilities:&nbsp;
+      {abilities.map((x, i) => {
+        return <Ability ability={x.ability} key={i} />;
+      })}
+    </div>
+  );
+}
+function Ability(props) {
+  const { ability } = props;
+  return <div className="Ability">{ability.name}</div>;
+}
+
+function Stats(props) {
+  const { stats } = props;
+
+  return (
+    <div className="Stats">
+      <h4>Base Stats</h4>
+      {stats.map((x, i) => {
+        return <Stat stat={x} key={i} />;
+      })}
+    </div>
+  );
+}
+function Stat(props) {
+  const {stat} = props;
+
+  return (
+    <div className="Stat">
+      <h5>{stat.stat.name}</h5>
+      <h6>{stat.base_stat}</h6>
+    </div>
+  )
+}
 
 const SearchBar = styled.div`
   width: 100%;

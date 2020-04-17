@@ -55,7 +55,7 @@
   display: flex;
   flex-flow: column nowrap;
 }
-.Info .Types {
+.Info .flexy {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -63,6 +63,25 @@
   text-transform: capitalize;
   font-size: 1rem;
 }
-.Info .Types .Type {
+.Info .flexy div {
   padding: 5px;
+}
+
+.Stats {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px 15px;
+}
+.Stats h4 {
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: underline;
+}
+.Stats .Stat {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: 1rem;
+  text-transform: capitalize;
+  line-height: 1.2rem;
 }
