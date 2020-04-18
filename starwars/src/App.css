@@ -1,8 +1,108 @@
 .App {
+  height: 100%;
+  width: 100%;
   text-align: center;
-}
-.Header {
-  color: #443e3e;
-  text-shadow: 1px 1px 5px #fff;
+  display: flex;
+  flex-direction: column;
 }
 /* write your parent styles in here for your App.js */
+.PokemonList {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(220, 220, 220, 0.2);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+.Card {
+  width: 40%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #000;
+  border-radius: 7px 7px 5px 5px;
+}
+.Head {
+  background-color: #333;
+  color: #FFF;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  padding: 5px;
+  border-radius: 5px 5px 0 0;
+}
+.Head .crop {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+}
+.Head .crop img {
+  height: 96px;
+  width: 96px;
+  max-width: 96px;
+  margin: -23px 0 0 -23px;
+}
+.Head h2 {
+  flex-grow: 2;
+  text-align: left;
+  padding: 5px;
+  text-transform: capitalize;
+  font-size: 2em;
+}
+.Head h3 {
+  padding: 5px 8px;
+  font-size: 1.3em;
+}
+.Info {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.Info .flexy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: capitalize;
+  font-size: 1rem;
+  padding: 7px 15px 0;
+}
+.Info .flexy span {
+  border-bottom: 1px solid #000;
+  line-height: 1.35rem;
+  font-weight: 600
+}
+.Info .flexy div {
+  padding: 5px;
+  flex-grow: 1;
+}
+
+.Stats {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px 15px;
+  align-items: baseline;
+}
+.Stats h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #000;
+  margin-bottom: 5px;
+}
+.Stats .Stat {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: 1rem;
+  text-transform: capitalize;
+  line-height: 1.2rem;
+}
+.Stats .Stat * {
+  font-weight: 400;
+}
+.Stats .Stat .Dots {
+  flex: 1;
+  overflow: hidden;
+  line-height: 1.1rem;
+  letter-spacing: .03rem;
+}

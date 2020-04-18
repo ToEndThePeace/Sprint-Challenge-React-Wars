@@ -1,7 +1,22 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  max-width: 100%;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-size: 62.5%;
   font-family: sans-serif;
-  background-image: url('./images/sw-bg.jpg');
+  background-image: url('./images/pk-bg.jpg');
   background-size: cover;
+}
+
+@font-face {
+  font-family: "Pocket Monk";
+  src: url(./assets/PocketMonk-15ze.ttf);
 }
